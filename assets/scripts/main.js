@@ -1,5 +1,6 @@
 let cities = null;
-let activeID = 0;
+let activeID = null;
+let isAnimating = false;
 
 function init() {
   gsap.registerPlugin(ScrambleTextPlugin);
@@ -48,17 +49,47 @@ function moveBar(x, width) {
 }
 
 function getTime(iana) {
-  let timeTextElement = document.querySelector('.time-text');
   let time = new Date().toLocaleTimeString("en-US", { timeZone: iana });
+  let timeSplit = time.split(" ");
+  let timeString =
+    timeSplit[0].split(":")[0] +
+    ":" +
+    timeSplit[0].split(":")[1] +
+    " " +
+    timeSplit[timeSplit.length - 1];
+  return timeString;
+}
+
+function setTime(iana) {
+  isAnimating = true;
+
   gsap.set('#time', {
     opacity: 1
   });
   
+  let timeTextElement = document.querySelector(".time-text");
   gsap.to(timeTextElement, {
-    scrambleText: {text: time, chars: "1234567890"},
+    scrambleText: { text: getTime(iana), chars: "1234567890" },
     duration: 1,
-    ease: 'quad.inOut'
-  })
+    ease: "quad.inOut",
+    onComplete: () => {
+      isAnimating = false;
+      setTimeout(() => {
+        updateTime();
+      }, 1000);
+    }
+  });
+}
+
+function updateTime() {
+  let timeTextElement = document.querySelector(".time-text");
+  timeTextElement.textContent = getTime(cities[activeID].IANA);
+
+  if(!isAnimating) {
+    setTimeout(() => {
+      updateTime();
+    }, 1000);
+  }
 }
 
 // event handlers
@@ -67,11 +98,12 @@ function onButtonClick(e) {
   let navItems = document.querySelectorAll('.nav-item');
   navItems.forEach((navItem, index) => {
     if(navItem === e.target) {
+      if(activeID === index) return; 
       navItem.classList.add('active');
       activeID = index;
       let bounds = navItem.getBoundingClientRect();
       moveBar(bounds.x, bounds.width);
-      getTime(cities[index].IANA);
+      setTime(cities[index].IANA);
     } else {
       navItem.classList.remove('active');
     }

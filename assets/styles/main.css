@@ -103,10 +103,13 @@ main {
 }
 
 #time {
+  width: 100%;
+  max-width: var(--container-width);
   padding: 64px;
-  border-radius: 10px;
+  border-radius: 20px;
   background-color: var(--dark-gray);
   opacity: 0;
+  text-align: center;
 }
 
 #time .time-text {
