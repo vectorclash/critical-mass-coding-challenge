@@ -1,0 +1,102 @@
+/* fonts */
+
+@font-face {
+  font-family: SF Pro Text;
+  src: url('assets/fonts/sf-pro-text_regular.woff2') format('woff2');
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: SF Pro Text;
+  src: url('assets/fonts/sf-pro-text_bold.woff2') format('woff2');
+  font-weight: 700;
+}
+
+/* variables */
+
+:root {
+  --light-grey: rgb(174, 174, 178);
+  --dark-gray: rgb(44, 44, 46);
+  --blue: rgb(10, 132, 255);
+  --container-width: 1024px;
+}
+
+/* reset */
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+/* set primary font */
+
+body {
+  font-family: 'SF Pro Display', sans-serif;
+  font-weight: 400;
+}
+
+/* navigation */
+
+#navigation {
+  position: relative;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 32px 0;
+  padding: 0 64px;
+}
+
+#navigation ul {
+  width: 100%;
+  max-width: var(--container-width);
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  list-style-type: none;
+  margin-bottom: 8px;
+}
+
+#navigation ul li {
+  font-size: 14px;
+  color: var(--light-grey);
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+#navigation ul li:hover {
+  color: var(--blue);
+}
+
+#navigation ul li.active {
+  color: var(--dark-gray);
+}
+
+#navigation .nav-line {
+  position: relative;
+  width: 100%;
+  max-width: calc(var(--container-width) + calc(128px * 2));
+  height: 1px;
+  background-color: var(--light-grey);
+}
+
+#navigation .nav-line-indicator {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100px;
+  height: 1px;
+  background-color: black;
+  opacity: 0;
+}
+
+/* other content */
+
+main {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}

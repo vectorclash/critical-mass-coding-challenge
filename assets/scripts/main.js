@@ -60,7 +60,7 @@ function onButtonClick(e) {
 }
 
 function onResize(e) {
-
+  
 }
 
 // initialize on content load
