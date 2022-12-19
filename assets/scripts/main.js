@@ -47,10 +47,9 @@ function moveBar(x, width) {
 function onButtonClick(e) {
   let navItems = document.querySelectorAll('.nav-item');
   navItems.forEach((navItem, index) => {
-    activeID = index;
-
     if(navItem === e.target) {
       navItem.classList.add('active');
+      activeID = index;
       let bounds = navItem.getBoundingClientRect();
       moveBar(bounds.x, bounds.width);
     } else {
@@ -60,7 +59,13 @@ function onButtonClick(e) {
 }
 
 function onResize(e) {
-  
+  let indicator = document.querySelector(".nav-line-indicator");
+  let line = document.querySelector(".nav-line");
+  let navItems = document.querySelectorAll(".nav-item");
+
+  gsap.set(indicator, {
+    x: navItems[activeID].getBoundingClientRect().x - line.getBoundingClientRect().x
+  });
 }
 
 // initialize on content load
