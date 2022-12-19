@@ -2,6 +2,7 @@ let cities = null;
 let activeID = 0;
 
 function init() {
+  gsap.registerPlugin(ScrambleTextPlugin);
   let messageElement = document.querySelector("#message");
 
   fetch('assets/scripts/navigation.json').then(response => {
@@ -18,7 +19,7 @@ function init() {
 }
 
 function buildNav(data) {
-  cities = data.cites;
+  cities = data.cities;
   let navList = document.querySelector('.nav-list');
   data.cities.forEach((city, index) => {
     let navItem = document.createElement('li');
@@ -26,6 +27,10 @@ function buildNav(data) {
     navItem.textContent = city.label;
     navList.appendChild(navItem);
     navList.addEventListener('click', onButtonClick);
+
+    if(index === 0) {
+      navItem.click();
+    }
   });
 }
 
@@ -42,6 +47,20 @@ function moveBar(x, width) {
   })
 }
 
+function getTime(iana) {
+  let timeTextElement = document.querySelector('.time-text');
+  let time = new Date().toLocaleTimeString("en-US", { timeZone: iana });
+  gsap.set('#time', {
+    opacity: 1
+  });
+  
+  gsap.to(timeTextElement, {
+    scrambleText: {text: time, chars: "1234567890"},
+    duration: 1,
+    ease: 'quad.inOut'
+  })
+}
+
 // event handlers
 
 function onButtonClick(e) {
@@ -52,6 +71,7 @@ function onButtonClick(e) {
       activeID = index;
       let bounds = navItem.getBoundingClientRect();
       moveBar(bounds.x, bounds.width);
+      getTime(cities[index].IANA);
     } else {
       navItem.classList.remove('active');
     }

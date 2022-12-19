@@ -18,6 +18,7 @@
   --light-grey: rgb(174, 174, 178);
   --dark-gray: rgb(44, 44, 46);
   --blue: rgb(10, 132, 255);
+  --green: rgb(48, 209, 88);
   --container-width: 1024px;
 }
 
@@ -99,4 +100,17 @@ main {
   display: flex;
   flex-direction: row;
   justify-content: center;
+}
+
+#time {
+  padding: 64px;
+  border-radius: 10px;
+  background-color: var(--dark-gray);
+  opacity: 0;
+}
+
+#time .time-text {
+  font-size: 128px;
+  font-weight: 700;
+  color: var(--green);
 }
