@@ -95,7 +95,9 @@ function updateTime() {
 // event handlers
 
 function onButtonClick(e) {
-  let navItems = document.querySelectorAll('.nav-item');
+  if(!e.target.classList.contains('nav-item')) return;
+
+  let navItems = document.querySelectorAll(".nav-item");
   navItems.forEach((navItem, index) => {
     if(navItem === e.target) {
       if(activeID === index) return; 
