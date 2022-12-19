@@ -1,4 +1,3 @@
 # critical-mass-coding-challenge
-## Critical Mass coding challenge
 
-The navigation is built from a local JSON file. Make sure to run from an environemnt that will allow a fetch of that file.
+I used the provided JSON file as a base to construct the navigation. I simply added the IANA codes to adjust time accordingly. The navigation is built from that local JSON file so make sure to run this from an environemnt that will allow a fetch of that file.
