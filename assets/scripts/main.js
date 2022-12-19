@@ -1,10 +1,12 @@
 let cities = null;
 let activeID = null;
 let isAnimating = false;
+let animationTime = 0.5;
 
 function init() {
   gsap.registerPlugin(ScrambleTextPlugin);
   let messageElement = document.querySelector("#message");
+  let messageH1 = messageElement.querySelector('h1');
 
   fetch('assets/scripts/navigation.json').then(response => {
     return response.json();
@@ -12,7 +14,7 @@ function init() {
     messageElement.style.display = 'none';
     buildNav(data);
   }).catch(error => {
-    messageElement.textContent = 'Something went wrong.';
+    messageH1.textContent = "Something went wrong.";
     console.log(error)
   });
 
@@ -40,7 +42,7 @@ function moveBar(x, width) {
   let line = document.querySelector('.nav-line');
 
   gsap.to(indicator, {
-    duration: 1,
+    duration: animationTime,
     ease: 'quad.inOut',
     x: x - line.getBoundingClientRect().x,
     width: width,
@@ -70,7 +72,7 @@ function setTime(iana) {
   let timeTextElement = document.querySelector(".time-text");
   gsap.to(timeTextElement, {
     scrambleText: { text: getTime(iana), chars: "1234567890" },
-    duration: 1,
+    duration: animationTime,
     ease: "quad.inOut",
     onComplete: () => {
       isAnimating = false;
